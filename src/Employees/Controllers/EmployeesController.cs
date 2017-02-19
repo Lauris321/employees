@@ -18,7 +18,7 @@ namespace Employees.Controllers
             ViewData["prevPage"] = id - 1;
             ViewData["nextPage"] = id + 1;
 
-            return View("Index", context.GetSomeEmployees(id));
+            return View("List", context.GetSomeEmployees(id));
         }
 
         // GET: Employees/Create

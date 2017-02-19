@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<Employees.Models.Employee>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = $"Employees pg. {ViewData["page"]}";
     var prevPage = ViewData["prevPage"];
 }
 
-<h2>Index</h2>
+<h2>Employees pg. @ViewData["page"]</h2>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -52,5 +52,8 @@
     <a asp-action="List" asp-route-id="@prevPage">Previous page</a>
     }
     @ViewData["page"]
-    <a asp-action="List" asp-route-id="@ViewData["nextPage"]">Next page</a>
+    @if (Model.Count() >= 10)
+    {
+        <a asp-action="List" asp-route-id="@ViewData["nextPage"]">Next page</a>
+    }
 </p>

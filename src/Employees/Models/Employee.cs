@@ -77,26 +77,6 @@ namespace Employees.Models
             return list;
         }
 
-        public int GetEmployeesNum()
-        {
-            int num = 0;
-
-            using (MySqlConnection conn = GetConnection())
-            {
-                conn.Open();
-                MySqlCommand cmd = new MySqlCommand("SELECT COUNT(*) FROM employees", conn);
-                using (MySqlDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        num = reader.GetInt32();
-                    }
-                }
-            }
-
-            return num;
-        }
-
         public Employee GetEmployee(int? id)
         {
             Employee employee = new Employee();
