@@ -17,8 +17,18 @@ namespace Employees.Controllers
             ViewData["page"] = id;
             ViewData["prevPage"] = id - 1;
             ViewData["nextPage"] = id + 1;
+            ViewData["search"] = "";
 
             return View("List", context.GetSomeEmployees(id));
+        }
+
+        public IActionResult Search(string searchString)
+        {
+            EmployeeContext context = HttpContext.RequestServices.GetService(typeof(Employees.Models.EmployeeContext)) as EmployeeContext;
+            ViewData["search"] = searchString;
+        
+
+            return View("List", context.Search(searchString));
         }
 
         // GET: Employees/Create

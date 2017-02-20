@@ -4,11 +4,18 @@
     var prevPage = ViewData["prevPage"];
 }
 
-<h2>Employees pg. @ViewData["page"]</h2>
-
+<h2>Employees</h2>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<form asp-controller="Employees" asp-action="Search">
+    <p>
+        Name or lastname: <input type="text" name="searchString">
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
 <table class="table">
     <thead>
         <tr>
@@ -46,14 +53,17 @@
         }
     </tbody>
 </table>
-<p>
-    @if ((int)prevPage >= 0)
-    {
-    <a asp-action="List" asp-route-id="@prevPage">Previous page</a>
-    }
-    @ViewData["page"]
-    @if (Model.Count() >= 10)
-    {
-        <a asp-action="List" asp-route-id="@ViewData["nextPage"]">Next page</a>
-    }
-</p>
+@if (ViewData["search"] == "")
+{
+    <p>
+        @if ((int)prevPage >= 0)
+        {
+        <a asp-action="List" asp-route-id="@prevPage">Previous page</a>
+        }
+        @ViewData["page"]
+        @if (Model.Count() >= 10)
+        {
+            <a asp-action="List" asp-route-id="@ViewData["nextPage"]">Next page</a>
+        }
+    </p>
+}

@@ -77,6 +77,31 @@ namespace Employees.Models
             return list;
         }
 
+        public List<Employee> Search(string searchString)
+        {
+            List<Employee> list = new List<Employee>();
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand($"SELECT * FROM employees WHERE name='{searchString}' OR lastname='{searchString}'", conn);
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new Employee()
+                        {
+                            ID = reader.GetInt32("ID"),
+                            Name = reader.GetString("name"),
+                            LastName = reader.GetString("lastname"),
+                            NetWage = reader.GetDecimal("net_wage"),
+                        });
+                    }
+                }
+            }
+
+            return list;
+        }
+
         public Employee GetEmployee(int? id)
         {
             Employee employee = new Employee();
