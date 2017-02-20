@@ -139,6 +139,32 @@ namespace Employees.Models
                 cmd.ExecuteScalar();
             }
         }
+
+        public void Edit(Employee employee)
+        {
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                NumberFormatInfo nfi = new NumberFormatInfo();
+                nfi.NumberDecimalSeparator = ".";
+                MySqlCommand cmd = new MySqlCommand($"UPDATE employees SET name='{employee.Name}', lastname='{employee.LastName}', net_wage='{employee.NetWage.ToString(nfi)}' WHERE ID='{employee.ID}'", conn);
+
+                cmd.ExecuteScalar();
+            }
+        }
+
+        public void Delete(int id)
+        {
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                NumberFormatInfo nfi = new NumberFormatInfo();
+                nfi.NumberDecimalSeparator = ".";
+                MySqlCommand cmd = new MySqlCommand($"DELETE FROM employees WHERE ID={id}", conn);
+
+                cmd.ExecuteScalar();
+            }
+        }
     }
 
     public class Employee
