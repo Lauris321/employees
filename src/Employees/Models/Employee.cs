@@ -134,7 +134,7 @@ namespace Employees.Models
                 conn.Open();
                 NumberFormatInfo nfi = new NumberFormatInfo();
                 nfi.NumberDecimalSeparator = ".";
-                MySqlCommand cmd = new MySqlCommand($"INSERT INTO employees (name, lastname, net_wage) VALUES('{employee.Name}', '{employee.LastName}', '{employee.NetWage.ToString(nfi)}')", conn);
+                MySqlCommand cmd = new MySqlCommand($"INSERT INTO employees (name, lastname, net_wage) VALUES('{employee.Name}', '{employee.LastName}', {employee.NetWage.ToString(nfi)})", conn);
                 
                 cmd.ExecuteScalar();
             }
